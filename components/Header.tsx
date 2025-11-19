@@ -15,14 +15,6 @@ export default function Header() {
     }
   }, [session, status, router]);
 
-  if (status === "loading") {
-    return null;
-  }
-
-  if (!session) {
-    return null;
-  }
-
   return (
     <header className="border-b bg-white shadow-sm">
       <nav className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
