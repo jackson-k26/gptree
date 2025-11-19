@@ -9,10 +9,11 @@ import { z } from "zod";
  * @param request a request for this route that includes the treeHash query parameter
  * @returns a NextResponse with 200 status and the most recent node on success.
  */
-export async function GET(request: NextRequest, context : { params: { treeHash: string } }) {
+export async function GET(request: NextRequest, context : { params: Promise<{ treeHash: string }> }) {
     try {
         // First we parse the input
-        const hash = GetTreeByHashSchema.parse({ hash: context.params.treeHash });
+        const params = await context.params;
+        const hash = GetTreeByHashSchema.parse({ hash: params.treeHash });
 
         // Then get the most recently made node
         const node = await prisma.node.findFirst({
